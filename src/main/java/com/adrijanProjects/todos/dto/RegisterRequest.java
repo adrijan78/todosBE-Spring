@@ -18,8 +18,8 @@ public class RegisterRequest {
     @Email
     private String email;
 
-    @NotEmpty(message = "First name is mandatory")
-    @Size(min=5, max=30,message = "First name must be at least 3 characters long")
+    @NotEmpty(message = "Password is mandatory")
+    @Size(min=5, max=30,message = "Password must be at least 3 characters long")
     private String password;
 
     public RegisterRequest(String firstname, String lastName, String email, String password) {

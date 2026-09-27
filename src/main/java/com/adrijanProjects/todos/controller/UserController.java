@@ -1,13 +1,14 @@
 package com.adrijanProjects.todos.controller;
 
+import com.adrijanProjects.todos.dto.PasswordUpdateRequest;
 import com.adrijanProjects.todos.dto.UserResponse;
 import com.adrijanProjects.todos.entity.User;
 import com.adrijanProjects.todos.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
 
@@ -25,6 +26,8 @@ public class UserController {
     }
 
 
+    @Operation(summary = "User information")
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/info")
     public UserResponse getUserInfo() throws AccessDeniedException {
 
@@ -32,8 +35,18 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Delete user")
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping
     public void deleteUser() throws AccessDeniedException {
         userService.deleteUser();
+    }
+
+
+    @Operation(summary = "Password update")
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/password-change")
+    public void passwordUpdate(@Valid @RequestBody PasswordUpdateRequest passwordUpdateRequest) throws Exception{
+        userService.updatePassword(passwordUpdateRequest);
     }
 }
